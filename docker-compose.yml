@@ -38,6 +38,26 @@ services:
     networks:
       - myapp
 
+  nuxt3:
+    build:
+      context: nuxt3
+      dockerfile: Dockerfile
+    volumes:
+      # ここが重要
+      # Docker from Dockerでは .:/app と書くと正常に動かない
+      # 相対パスではなく、フルパスで書く必要がある
+      # 一方でDockerの外でも動かしたいので、
+      # デフォルト値として相対パスを指定している
+      - type: bind
+        source: ${LOCAL_WORKSPACE_FOLDER:-.}/nuxt3
+        target: /home/node/app
+      - /home/node/app/node_modules
+    # command: npm run dev
+    ports:
+      - 60000:3000
+    networks:
+      - myapp
+    tty: true
 
 networks:
   myapp:

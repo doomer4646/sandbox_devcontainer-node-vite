@@ -21,6 +21,7 @@ RUN apt update && apt install -y nodejs
 # この二行なくてもdevcontainer.jsonのforwardPortsが優先されるのかもしれないけど一応書いてる
 EXPOSE 30000
 EXPOSE 50000
+EXPOSE 60000
 
 # 実際に開発に使うroot以外のユーザーを作成します
 RUN useradd -m user
